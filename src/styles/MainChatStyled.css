@@ -1,0 +1,31 @@
+.Header {
+    background-color: orange;
+    height: 80px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.header-search input {
+    width: 450px;
+    height: 40px;
+    border: none;
+}
+
+.header-left{
+    display: flex;
+    gap: 26px;
+    align-items: center;
+}
+
+.header-logo {
+    border: black solid 1px;
+    width: 40px;
+    height: 40px;
+}
+
+.header-right {
+    border: black solid 1px;
+    width: 40px;
+    height: 40px;
+}

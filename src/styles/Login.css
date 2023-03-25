@@ -1,0 +1,48 @@
+.login-wrapper {
+    padding: 20px 100px;
+}
+
+.login-inputs{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.login-logo {
+    width: 500px;
+    height: 40px;
+    border: 1px solid black;
+    margin: 50px auto;
+}
+
+.login-inputs input {
+    width: 400px;
+    height: 50px;
+    font-size: 17px;
+}
+
+.login-input-sub {
+    display: flex;
+    align-content: stretch;
+    justify-content: space-between;
+    margin: auto;
+    margin-top: 10px;
+    width: 400px;
+    font-size: 14px;
+}
+
+.login-btns {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-top: 70px;
+}
+
+.login-btns button {
+    border: none;
+    height: 50px;
+    width: 400px;
+    font-size: 17px;
+}
