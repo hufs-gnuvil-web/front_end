@@ -1,0 +1,113 @@
+.login-wrapper {
+    padding: 20px 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.login-inputs{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.login-inputs-items{
+    display: flex;
+}
+
+.login-inputs-img {
+    height: 60px;
+    width: 70px;
+    padding: 15px;
+    background: #e8e8e8;
+    box-sizing: border-box;
+    border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px;
+    border: 1px solid #d0d0d0;
+}
+
+.login-inputs-img img{
+    width: 30px;
+}
+
+.login-logo {
+    width: 500px;
+    height: 40px;
+    border: 1px solid black;
+    margin: 30px;
+}
+
+.login-inputs .login-inputs-items input{
+    width: 340px;
+    height: 60px;
+    font-size: 17px;
+    box-sizing: border-box;
+    border: none;
+    border: 1px solid #d0d0d0;
+    padding: 10px;
+    border-bottom-right-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.login-input-sub {
+    display: flex;
+    align-content: stretch;
+    justify-content: space-between;
+    width: 400px;
+    font-size: 14px;
+}
+
+.login-btns {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-top: 45px;
+}
+
+.login-btns button {
+    border: none;
+    height: 50px;
+    width: 400px;
+    font-size: 17px;
+    border-radius: 8px;
+    color: white;
+}
+
+.login-btn-signup {
+    background-color: gray;
+}
+
+.login-btn-login {
+    background-color: #fa8071;
+}
+
+.login-sns-naver, .login-sns-kakao{
+    width: 50px;
+    height: 50px;
+    background-color: aliceblue;
+    border-radius: 50%;
+}
+
+.login-sns {
+    font-size: 14px;
+    margin-top: 15px;
+}
+
+.login-sns-btns {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px;
+}
+
+.login-sns-naver img {
+    width: 25px;
+    margin: 12px;
+}
+
+.login-sns-kakao img {
+    width: 35px;
+    margin: 8px;
+}

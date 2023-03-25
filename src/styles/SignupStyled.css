@@ -1,0 +1,72 @@
+.signup-wrapper {
+    padding: 30px 26%;    
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+}
+
+.signup-items {
+    font-size: 14px;
+    text-align: left;
+    width: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.signup-items select {
+    height: 45px;
+    border: 1px solid #cbcaca;
+    border-radius: 8px;
+    width: 120px;
+}
+
+.signup-items input{
+    width: 100%;
+    box-sizing: border-box;
+    height: 55px;
+    padding: 10px;
+    background: #e0e0e0;
+    border: none;
+    border-radius: 8px;
+}
+
+.signup-address {
+    gap: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.signup-address input {
+    width: 55%;
+}
+
+.signup-address button {
+    border: none;
+    padding: 0 20px;
+    height: 50px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.signup-email {
+    align-items: center;
+    display: flex;
+    gap: 11px;
+    font-size: 18px;
+}
+
+.signup-btn {
+    height: 50px;
+    border: none;
+    margin: 35px 0;
+    width: 50%;
+    border-radius: 8px;
+    background: #fa8071;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
