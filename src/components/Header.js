@@ -12,9 +12,7 @@ export default function Header() {
                 </div>
             </div>
 
-            <div className = "header-right">
-
-            </div>
+            <img src = "images/profile-user.png" alt = "id" className = "header-right" />
         </div>
     )
 }

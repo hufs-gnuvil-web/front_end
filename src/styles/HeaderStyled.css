@@ -1,10 +1,36 @@
-.mainchat-wrapper {
-    padding: 20px 100px;
-    background-color: antiquewhite;
-}
-
 .BasicHeader{
     height: 70px;
     background-color: #fa8071;
 }
 
+.Header {
+    background-color: #fa8071;
+    height: 80px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.header-search input {
+    width: 450px;
+    height: 45px;
+    border: none;
+    border-radius: 5px;
+    background: #ebb8b3;
+}
+
+.header-left{
+    display: flex;
+    gap: 26px;
+    align-items: center;
+}
+
+.header-logo {
+    border: black solid 1px;
+    width: 40px;
+    height: 40px;
+}
+
+.header-right {
+    width: 45px;
+}

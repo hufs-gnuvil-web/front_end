@@ -9,6 +9,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route exact path='/*' element={<MainChat/>} />
+        <Route exact path='/chat' element={<MainChat/>} />
         <Route path = '/login' element={<Login/>}></Route>
         <Route path = '/signup' element={<Signup/>}></Route>
       </Routes>
