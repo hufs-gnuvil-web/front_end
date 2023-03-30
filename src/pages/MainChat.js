@@ -30,17 +30,30 @@ export default function MainChat() {
                 </div>
             </div>
             <div className = "mainchat-wrapper">
-                <div className = "mainchat-chat">
-                    <div className = "mainchat-chat-user">
+                <div className = "mainchat-chat-contents">
+                    <div className = "mainchat-chat">
+                        <img src = "images/person.png" alt = "user" />
+                        <div className = "mainchat-chat-message">
 
+                        </div>
                     </div>
-                    <div className = "mainchat-chat-message">
+                    <div className = "mainchat-chat">
+                        <img src = "images/person.png" alt = "user" />
+                        <div className = "mainchat-chat-message">
 
+                        </div>
+                    </div>                
+                    <div className = "mainchat-chat">
+                        <img src = "images/person.png" alt = "user" />
+                        <div className = "mainchat-chat-message">
+
+                        </div>
                     </div>
                 </div>
 
-                <div>
-                    
+                <div className = "mainchat-input">
+                    {/* <button>+</button> */}
+                    <input />
                 </div>
             </div>
         </MainChatStyle>
