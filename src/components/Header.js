@@ -5,7 +5,7 @@ export default function Header() {
         <div className = "Header">
             <div className="header-left">
                 <div className = "header-logo">
-
+                    <img src = "images/title.png" alt = "id" />
                 </div>
                 <div className = "header-search">
                     <input type="text"/>

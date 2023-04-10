@@ -64,7 +64,7 @@ export const MainChatStyle = styled.div `
 
         .mainchat-chat-message {
             width: 500px;
-            background: #fa8071;
+            background: #ED7C7C;
             border-radius: 10px;
             box-shadow: #949494 6px 7px 15px;        
         }

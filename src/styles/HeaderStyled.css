@@ -1,10 +1,10 @@
 .BasicHeader{
     height: 70px;
-    background-color: #fa8071;
+    background-color: #ED7C7C;
 }
 
 .Header {
-    background-color: #fa8071;
+    background-color: #ED7C7C;
     height: 80px;
     display: flex;
     justify-content: space-around;
@@ -12,22 +12,20 @@
 }
 
 .header-search input {
-    width: 450px;
+    width: 500px;
     height: 45px;
     border: none;
-    border-radius: 5px;
-    background: #ebb8b3;
+    border-radius: 60px;
+    background: white;
 }
 
 .header-left{
     display: flex;
-    gap: 26px;
+    gap: 20px;
     align-items: center;
 }
 
-.header-logo {
-    border: black solid 1px;
-    width: 40px;
+.header-logo img {
     height: 40px;
 }
 
