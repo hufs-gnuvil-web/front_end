@@ -22,14 +22,14 @@ export const MainStyle = styled.div `
     }
 
     .main-wrapper {
-        padding: 10px 70px;
-        display: flex;
+        position: relative;
     }
 
     .main-right-container {
         position: absolute;
-        right: 10px;
-        top: -20px;
+        right: 0px;
+        top: -50px;
+        width: 860px;
     }
 
     .main-left-container{
@@ -37,8 +37,8 @@ export const MainStyle = styled.div `
         flex-direction: column;
         align-items: baseline;
         gap: 12px;
-        padding-top: 50px;
-        
+        padding: 80px;
+
         button{
             border: none;
             background: #D24D4D;
@@ -49,14 +49,33 @@ export const MainStyle = styled.div `
             box-shadow: 3px 3px 12px #908d8d;
             cursor: pointer;
         }
-        
-        img {
-            width: 650px;
-        }
-
+    
         .main-left-txt{
             font-size: 24px;
+            z-index: 99;
         }
 
+        img {
+            width: 650px;
+            z-index: 99;
+        }
+
+        a {
+            z-index: 99;
+        }
+    }
+
+    @media (max-width: 800px) {
+        .main-right-container {
+            display: none;
+        }
+
+        .main-left-container img{
+            width: 100%;
+        }
+
+        .main-left-container {
+            align-items: center;
+        }
     }
 `
