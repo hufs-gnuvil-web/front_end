@@ -33,9 +33,7 @@
 }
 
 .login-logo {
-    width: 500px;
-    height: 40px;
-    border: 1px solid black;
+    height: 80px;
     margin: 30px;
 }
 
@@ -64,7 +62,7 @@
     flex-direction: column;
     align-items: center;
     gap: 15px;
-    margin-top: 45px;
+    margin-top: 40px;
 }
 
 .login-btns button {
@@ -72,12 +70,14 @@
     height: 50px;
     width: 400px;
     font-size: 17px;
-    border-radius: 8px;
+    font-weight: bold;
+    border-radius: 5px;
     color: white;
+    cursor: pointer;
 }
 
 .login-btn-signup {
-    background-color: gray;
+    background-color: #B1B1B1;
 }
 
 .login-btn-login {

@@ -8,9 +8,7 @@ export default function Login() {
         <div className = "Login">
             <BasicHeader />
             <div className = "login-wrapper">
-                <div className = "login-logo">
-
-                </div>
+                <img className = "login-logo" src = "images/logo.png" alt = "logo" />
                 
                 <div className = "login-inputs">
                     <div className = "login-inputs-items">

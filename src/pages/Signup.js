@@ -7,9 +7,7 @@ export default function Signup() {
         <div className = "Signup">
             <BasicHeader />
             <div className = "signup-wrapper">
-                <div className = "login-logo">
-
-                </div>
+                <img className = "login-logo" src = "images/logo.png" alt = "logo" />
 
                 <div className = "signup-items">
                     <div className = "signup-items-txt">사용자 아이디를 입력해주세요.</div>
