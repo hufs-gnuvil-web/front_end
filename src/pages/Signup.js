@@ -1,8 +1,16 @@
+import React, { useState } from 'react';
+
 import BasicHeader from "../components/BasicHeader";
 import "../styles/SignupStyled.css"
 import "../styles/LoginStyled.css"
+import DaumPostcode from 'react-daum-postcode';
 
 export default function Signup() {
+    const [inputValue, setInputValue] = useState('');
+    const onChangeInput = (e) => {
+      setInputValue(e.target.value);
+    };
+
     return(
         <div className = "Signup">
             <BasicHeader />
@@ -47,14 +55,14 @@ export default function Signup() {
                             type="text"
                         />
                         @
-                        <input 
-                            type="text"
-                        />
-                        <select>
-                            <option value="input">직접 입력</option>
-                            <option value="naver">naver.com</option>
-                            <option value="google">google.com</option>
-                            <option value="hufs">hufs.ac.kr</option>
+                        <input type="text" value={inputValue}/>
+
+                        <select value = {inputValue} onChange={onChangeInput}>
+                            <option value="">직접 입력</option>
+                            <option value="naver.com">naver.com</option>
+                            <option value="gmail.com">gmail.com</option>
+                            <option value="nate.com">nate.com</option>
+                            <option value="hufs.ac.kr">hufs.ac.kr</option>
                         </select>
                     </div>
                 </div>
@@ -82,6 +90,7 @@ export default function Signup() {
                 <button className = "signup-btn">
                     가입하기
                 </button>
+                {/* <DaumPostcode></DaumPostcode> */}
             </div>
         </div>
     )

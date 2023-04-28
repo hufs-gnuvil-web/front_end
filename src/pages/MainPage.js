@@ -6,7 +6,9 @@ export default function MainPage() {
         <MainStyle>
             <div className = "mainHeader">
                 <img className = "mainHeader-logo" src = "images/logo.png" alt = "logo" />
-                <img src = "images/profile-user.png" alt = "mypage" />
+                <Link to = "/login">
+                    <img src = "images/profile-user.png" alt = "mypage" />
+                </Link>
             </div>
             <div className = "main-wrapper">
                 <div className = 'main-left-container'>
