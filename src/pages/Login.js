@@ -45,7 +45,7 @@ export default function Login() {
                 </div>
 
                 <div className = "login-btns">
-                    <Link to = "/signup">
+                    <Link to = "/terms">
                         <button className = "login-btn-signup">
                             회원가입
                         </button>

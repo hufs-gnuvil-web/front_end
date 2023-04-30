@@ -5,6 +5,8 @@ import "../styles/SignupStyled.css"
 import "../styles/LoginStyled.css"
 import DaumPostcode from 'react-daum-postcode';
 
+import { Link } from "react-router-dom";
+
 export default function Signup() {
     const [inputValue, setInputValue] = useState('');
     const onChangeInput = (e) => {
@@ -16,6 +18,12 @@ export default function Signup() {
             <BasicHeader />
             <div className = "signup-wrapper">
                 <img className = "login-logo" src = "images/logo.png" alt = "logo" />
+
+                <div className = "tos-step">
+                    <img src = "images/step1.png" alt = "step1" />
+                    <img src = "images/step2ok.png" alt = "step2" />
+                    <img src = "images/step3.png" alt = "step3" />
+                </div>
 
                 <div className = "signup-items">
                     <div className = "signup-items-txt">사용자 아이디를 입력해주세요.</div>
@@ -87,9 +95,11 @@ export default function Signup() {
                     />
                 </div>
 
-                <button className = "signup-btn">
-                    가입하기
-                </button>
+                <Link to = "/success">
+                    <button className = "signup-btn">
+                        가입하기
+                    </button>
+                </Link>
                 {/* <DaumPostcode></DaumPostcode> */}
             </div>
         </div>
