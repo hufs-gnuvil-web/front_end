@@ -101,13 +101,14 @@ export default function Signup() {
                     <div className = "signup-address">
                         <input 
                             type="text"
-                            required={true} name="address" onChange={handleInput} value={enroll_company.address}
+                            onChange={handleInput} 
+                            value={enroll_company.address}
                         />
                         <button onClick={()=>{
                             setPopup(!popup)
                         }}>주소 검색</button>
                     </div>
-                        {popup && <PostAddress company={enroll_company} setcompany={setEnroll_company}></PostAddress>
+                        {popup && <div><PostAddress company={enroll_company} setcompany={setEnroll_company}></PostAddress></div>
                     }
                     <input
                         type = "text"
