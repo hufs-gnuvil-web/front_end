@@ -1,8 +1,37 @@
+import React,{useState} from 'react'
 import "../styles/LoginStyled.css"
 import BasicHeader from "../components/BasicHeader";
 import { Link } from "react-router-dom";
+import axios from 'axios'; 
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+    const navigate = useNavigate();
+    // const [user, setUser] = useState('');
+    const [id, setId] = useState("");
+    const [password, setPassword] = useState("");
+
+    const ClickLogin = (e) => {
+        e.preventDefault();
+        // const data = new FormData(event.currentTarget);
+    
+        axios
+        .post("https://falling-fire-8326.fly.dev/user/login",{
+          id: id,
+          password: password,
+        })
+        .then((res) => {
+          console.log(res)
+          console.log(res.data)
+          alert(id + "님 반갑습니다.")
+          navigate("/", {replace:true});
+        })
+        .catch((error) => {
+            debugger
+            alert(error.response.data.message)
+        })
+    
+      };
 
     return(
         <div className = "Login">
@@ -18,6 +47,8 @@ export default function Login() {
                         <input 
                             type="text"
                             placeholder="id"
+                            name = {id}
+                            onChange={(e) => {setId(e.target.value)}}
                         />
                     </div>
                     <div className = "login-inputs-items">
@@ -27,6 +58,8 @@ export default function Login() {
                         <input 
                             type="password"
                             placeholder="password"
+                            name = {password}
+                            onChange={(e) => {setPassword(e.target.value)}}
                         />
                     </div>
 
@@ -50,7 +83,7 @@ export default function Login() {
                             회원가입
                         </button>
                     </Link>
-                        <button className = "login-btn-login">
+                        <button className = "login-btn-login" onClick={ClickLogin}>
                             로그인
                         </button>
                 </div>
