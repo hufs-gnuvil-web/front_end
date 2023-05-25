@@ -11,10 +11,11 @@ export default function Login() {
     const [id, setId] = useState("");
     const [password, setPassword] = useState("");
 
+    let sessionStorage = window.sessionStorage;
+
     const ClickLogin = (e) => {
         e.preventDefault();
         // const data = new FormData(event.currentTarget);
-    
         axios
         .post("https://falling-fire-8326.fly.dev/user/login",{
           id: id,
@@ -23,6 +24,9 @@ export default function Login() {
         .then((res) => {
           console.log(res)
           console.log(res.data)
+
+          sessionStorage.setItem("id", res.data.email)
+          
           alert(id + "님 반갑습니다.")
           navigate("/", {replace:true});
         })
