@@ -13,7 +13,9 @@ export default function MainChat() {
     const [currentRoom, setCurrentRoom] = useState(null);
     const [messages, setMessages] = useState([]);
     const [inputMessage, setInputMessage] = useState("");
-    const [userId, setuserId] = useState("");
+
+    let sessionStorage = window.sessionStorage;
+    const [setuserId, userId] = useState(sessionStorage.id);
 
     useEffect(() => {
         // Fetch initial chatroom list
@@ -60,11 +62,7 @@ export default function MainChat() {
           };
         }, []);
       
-        const handleuserId = () => {
-          const userId = prompt("Enter Your Name: ");
-          setuserId(userId);
-        };
-      
+
         const handleCreateRoom = () => {
           // Prompt user for room data
           const locationalCode = prompt("locationalCode");
@@ -103,7 +101,7 @@ export default function MainChat() {
           if (inputMessage) {
             const messageData = {
               roomId: currentRoom.roomId,
-              senderName: userId,
+              senderName: sessionStorage.name,
               senderId: userId,
               message: inputMessage,
             };
@@ -116,13 +114,6 @@ export default function MainChat() {
         <MainChatStyle>
             <Header />
             <div>
-      <div>
-        {userId === "" ? (
-          <button onClick={handleuserId}>Set User Id</button>
-        ) : (
-          <h2>Hello! {userId}</h2>
-        )}
-      </div>
       {/* Create Room */}
       {!currentRoom && (
         <div>

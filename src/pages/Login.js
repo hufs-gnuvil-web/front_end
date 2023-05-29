@@ -25,9 +25,11 @@ export default function Login() {
           console.log(res)
           console.log(res.data)
 
-          sessionStorage.setItem("id", res.data.email)
+          sessionStorage.setItem("id", id);
+          sessionStorage.setItem("name", res.data.name)
           
-          alert(id + "님 반갑습니다.")
+          alert(res.data.name + "님 반갑습니다.")
+        //   debugger
           navigate("/", {replace:true});
         })
         .catch((error) => {
