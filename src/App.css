@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  font-family: Noto Sans KR;
+  font-family: 'Noto Sans KR';
 }
 
 input {
@@ -8,6 +8,9 @@ input {
   font-family: 'Noto Sans KR';
 }
 
+button {
+  border:none;
+}
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 
 .notosanskr * { 
@@ -16,9 +19,7 @@ input {
 
 .ReactModal__Content{
   padding: 0px !important;
-  /* inset: 21% 30% !important; */
-  top: 13% !important;
+  top: 5% !important;
   width: 50% !important;
   left: 25% !important;
-  height: fit-content !important;
 }

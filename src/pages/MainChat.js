@@ -8,6 +8,7 @@ import socketIOClient from "socket.io-client";
 import axios from "axios";
 
 import Modal from 'react-modal';
+import { setSelectionRange } from "@testing-library/user-event/dist/utils";
 
 const URL = "https://falling-fire-8326.fly.dev";
 const socket = socketIOClient(URL);
@@ -122,13 +123,6 @@ export default function MainChat() {
         <MainChatStyle>
             <Header />
             <div>
-      {/* Create Room */}
-      {!currentRoom && (
-        <div>
-          <button onClick={handleCreateRoom}>Create Room</button>
-        </div>
-      )}
-
       {/* Room List */}
       {chatRooms.length > 0 && (
         <div>
@@ -144,36 +138,43 @@ export default function MainChat() {
           </ul>
         </div>
       )}
-
+                    {/* Chat Messages */}
+                    {messages !== null && (
+                      <div>
+                        <ul>
+                          {messages.map((message, index) => (
+                            <>
+                            {message.senderName == sessionStorage.name ?
+                              <li key={index}>
+                                {message.message}
+                                <strong> :{message.senderName}</strong>
+                              </li>
+                            :
+                              <li key={index}>
+                                <strong>{message.senderName}: </strong>
+                                {message.message}
+                              </li>
+                            }
+                            </>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                    <div>
+                      <input
+                        type="text"
+                        value={inputMessage}
+                        onChange={(e) => setInputMessage(e.target.value)}
+                      />
+                      <button className = "mainchat-sendbtn" onClick={handleSendMessage}>
+                        <img src = "images/sendIcon.png" alt = "user" />
+                      </button>
+                    </div>
       {/* Current Room */}
       {currentRoom && (
         <div>
           <h2>Current Room: {currentRoom.roomName}</h2>
           <button onClick={handleLeaveRoom}>Leave Room</button>
-
-          {/* Chat Messages */}
-          {messages !== null && (
-            <div>
-              <ul>
-                {messages.map((message, index) => (
-                  <li key={index}>
-                    <strong>{message.senderName}: </strong>
-                    {message.message}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {/* Chat Input */}
-          <div>
-            <input
-              type="text"
-              value={inputMessage}
-              onChange={(e) => setInputMessage(e.target.value)}
-            />
-            <button onClick={handleSendMessage}>Send</button>
-          </div>
         </div>
       )}
     </div>
@@ -301,66 +302,42 @@ export default function MainChat() {
                 </CreateChatStyled>
                 :
                 <PopupChatStyled>
-                  <div className = "mainchat-chat-contents">
-                    <div className = "mainchat-chat">
-                        <img src = "images/person.png" alt = "user" />
-                        <div className = "mainchat-chat-message">
-
-                        </div>
-                    </div>
-                    <div className = "mainchat-chat">
-                        <img src = "images/person.png" alt = "user" />
-                        <div className = "mainchat-chat-message">
-
-                        </div>
-                    </div>                
-                    <div className = "mainchat-chat">
-                        <img src = "images/person.png" alt = "user" />
-                        <div className = "mainchat-chat-message">
-
-                        </div>
-                    </div>
-                </div>
-
-                <div className = "mainchat-input">
-                    {/* <button>+</button> */}
-                    <button className = "mainchat-addbtn" onClick={()=> setModalIsOpen(true)}>+</button>
-                    <input />
-                    <button className = "mainchat-sendbtn">
-                      <img src = "images/sendIcon.png" alt = "user" />
-                    </button>
-                </div>
-                  {/* Current Room */}
-                  {currentRoom && (
-                    <div>
-                      <h2>Current Room: {currentRoom.roomName}</h2>
-                      <button onClick={handleLeaveRoom}>Leave Room</button>
-
-                      {/* Chat Messages */}
-                      {messages !== null && (
-                        <div>
-                          <ul>
-                            {messages.map((message, index) => (
-                              <li key={index}>
-                                <strong>{message.senderName}: </strong>
-                                {message.message}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-
-                      {/* Chat Input */}
-                      <div>
-                        <input
-                          type="text"
-                          value={inputMessage}
-                          onChange={(e) => setInputMessage(e.target.value)}
-                        />
-                        <button onClick={handleSendMessage}>Send</button>
+                  <div className="pc-header">
+                  </div>
+                  <div className="pc-roomname">
+                    {currentRoom.roomName}
+                  </div>
+                  <div className = "pc-wrapper">
+                    {/* Chat Messages */}
+                    {messages !== null && (
+                      <div className = "pc-chat-contents">
+                        {messages.map((message, index) => (
+                          <>
+                          {message.senderName === sessionStorage.name ?
+                            <div className="pc-mychat" key={index}>
+                              {message.message}
+                            </div>
+                          :
+                            <div className="pc-chat" key={index}>
+                              <div className="pc-chat-sender">{message.senderName}</div>
+                              <div className="pc-chat-message">{message.message}</div>
+                            </div>
+                          }
+                          </>
+                        ))}
                       </div>
+                    )}
+                    <div className = "mainchat-input">
+                      <input
+                        type="text"
+                        value={inputMessage}
+                        onChange={(e) => setInputMessage(e.target.value)}
+                      />
+                      <button className = "mainchat-sendbtn" onClick={handleSendMessage}>
+                        <img src = "images/sendIcon.png" alt = "user" />
+                      </button>
                     </div>
-                  )}
+                  </div>
               </PopupChatStyled>
               }
         </Modal>
