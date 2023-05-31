@@ -49,7 +49,7 @@ export default function Signup() {
     const [name, setName] = useState("");
     const [phonenumber, setPhone] = useState("");
 
-    const address = "인천남동구논고개로10";
+    // const address = "인천남동구논고개로10";
 
     const ClickSingup = () => {
         axios

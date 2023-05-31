@@ -5,10 +5,20 @@
 
 input {
   outline: none;
+  font-family: 'Noto Sans KR';
 }
 
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 
 .notosanskr * { 
  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.ReactModal__Content{
+  padding: 0px !important;
+  /* inset: 21% 30% !important; */
+  top: 13% !important;
+  width: 50% !important;
+  left: 25% !important;
+  height: fit-content !important;
 }

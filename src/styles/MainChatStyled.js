@@ -77,6 +77,20 @@ export const MainChatStyle = styled.div `
         bottom: 6%;
         left: 6%;
 
+        .mainchat-addbtn {
+            position: absolute;
+            z-index: 999;
+            bottom: -1px;
+            left: 1%;
+            width: 56px;
+            height: 56px;
+            border-radius: 21px;
+            border: none;
+            font-size: 40px;
+            color: white;
+            background: #F8CACA;
+        }
+
         input {
             width: 100%;
             height: 100%;
@@ -84,10 +98,22 @@ export const MainChatStyle = styled.div `
             border: none;
             position: relative;
             top: 13%;
-            border-radius: 8px;
+            border-radius: 21px;
             padding: 10px;
             box-sizing: border-box;
             background: linear-gradient(90deg, rgb(237, 124, 124), rgb(238 197 197));
+        }
+
+        .mainchat-sendbtn {
+            position: absolute;
+            z-index: 999;
+            bottom: -10px;
+            right: -9%;
+            width: 72px;
+            height: 72px;
+            border-radius: 21px;
+            border: none;
+            background: linear-gradient(100deg, rgb(237, 124, 124), rgb(238, 197, 197));
         }
     }
 `

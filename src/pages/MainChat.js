@@ -1,9 +1,13 @@
 import React, {useEffect, useState} from "react";
 import Header from '../components/Header'
 import { MainChatStyle } from "../styles/MainChatStyled";
+// import PopupChat from '../components/PopupChat'
+import { CreateChatStyled, PopupChatStyled } from "../styles/ComponentStyled";
 
 import socketIOClient from "socket.io-client";
 import axios from "axios";
+
+import Modal from 'react-modal';
 
 const URL = "https://falling-fire-8326.fly.dev";
 const socket = socketIOClient(URL);
@@ -14,8 +18,18 @@ export default function MainChat() {
     const [messages, setMessages] = useState([]);
     const [inputMessage, setInputMessage] = useState("");
 
+    // 모달 채팅
+    const [locationalCode, setLocationalCode] = useState("");
+    const [roomName, setRoomName] = useState("");
+    const [maxMember, setMaxMember] = useState("");
+    const [deliveryFee, setDeliveryFee] = useState("");
+    const [restaurantName, setRestaurantName] = useState("");
+    const [meetingTime, setMeetingTime] = useState("");
+
+
     let sessionStorage = window.sessionStorage;
-    const [setuserId, userId] = useState(sessionStorage.id);
+    const [userId, setUserId] = useState(sessionStorage.id);
+    const [modalIsOpen, setModalIsOpen] = useState(false);
 
     useEffect(() => {
         // Fetch initial chatroom list
@@ -65,15 +79,9 @@ export default function MainChat() {
 
         const handleCreateRoom = () => {
           // Prompt user for room data
-          const locationalCode = prompt("locationalCode");
-          const roomName = prompt("roomName");
-          const maxMember = prompt("maxMember");
-          const hostingMember = prompt("hostingMember");
+          const hostingMember = userId;
           const currentMember = [hostingMember];
-          const deliveryFee = prompt("deliveryFee");
-          const restaurantName = prompt("restaurantName");
-          const meetingTime = prompt("meetingTime");
-          const roomId = Date.now().toString();
+          const roomId = Date.now();
           const roomData = {
             roomId,
             locationalCode,
@@ -217,9 +225,145 @@ export default function MainChat() {
 
                 <div className = "mainchat-input">
                     {/* <button>+</button> */}
+                    <button className = "mainchat-addbtn" onClick={()=> setModalIsOpen(true)}>+</button>
                     <input />
+                    <button className = "mainchat-sendbtn">
+                      <img src = "images/sendIcon.png" alt = "user" />
+                    </button>
                 </div>
             </div>
+
+            <Modal isOpen={modalIsOpen}>
+              {!currentRoom ? 
+                <CreateChatStyled>
+                  <div className="cc-header">
+                    <button onClick={()=> setModalIsOpen(false)}>Ⅹ</button>
+                  </div>
+
+                  <div className="cc-inputwrapper">
+                    <input 
+                      className = "cc-input-roomname"
+                      type="text"
+                      value = {roomName}
+                      onChange = {(e) => {setRoomName(e.target.value)}}
+                      placeholder="채팅방 이름 설정"
+                    />
+
+                    <div className="cc-input">
+                      <img src = "images/meet.png" alt = "meet" />
+                      <input 
+                        type="number"
+                        value = {locationalCode}
+                        onChange = {(e) => {setLocationalCode(e.target.value)}}
+                        placeholder="locationalCode"
+                      />
+                    </div>
+                    
+                    <div className="cc-input">
+                      <img src = "images/minnum.png" alt = "id" />
+                      <input 
+                        type="number"
+                        value = {maxMember}
+                        onChange = {(e) => {setMaxMember(e.target.value)}}
+                        placeholder="최소 인원 설정"
+                      />
+                    </div>
+                    <div className="cc-input">
+                      <img src = "images/money.png" alt = "meet" />
+                      <input 
+                        type="number"
+                        value = {deliveryFee}
+                        onChange = {(e) => {setDeliveryFee(e.target.value)}}
+                        placeholder="기존 배달비"
+                      />         
+                    </div>
+                    <div className="cc-input">
+                      <img src = "images/deliverylocation.png" alt = "meet" />
+                      <input 
+                        type="text"
+                        value = {restaurantName}
+                        onChange = {(e) => {setRestaurantName(e.target.value)}}
+                        placeholder="배달 지점 선택"
+                      />
+                    </div>
+                    <div className="cc-input">
+                      <img src = "images/time.png" alt = "meet" />
+                      <input 
+                        type="number"
+                        value = {meetingTime}
+                        onChange = {(e) => {setMeetingTime(e.target.value)}}
+                        placeholder="만나는 시간"
+                      />
+                    </div>
+
+                    <button className="cc-savebtn"onClick={handleCreateRoom}>저장</button>
+                  </div>
+                </CreateChatStyled>
+                :
+                <PopupChatStyled>
+                  <div className = "mainchat-chat-contents">
+                    <div className = "mainchat-chat">
+                        <img src = "images/person.png" alt = "user" />
+                        <div className = "mainchat-chat-message">
+
+                        </div>
+                    </div>
+                    <div className = "mainchat-chat">
+                        <img src = "images/person.png" alt = "user" />
+                        <div className = "mainchat-chat-message">
+
+                        </div>
+                    </div>                
+                    <div className = "mainchat-chat">
+                        <img src = "images/person.png" alt = "user" />
+                        <div className = "mainchat-chat-message">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div className = "mainchat-input">
+                    {/* <button>+</button> */}
+                    <button className = "mainchat-addbtn" onClick={()=> setModalIsOpen(true)}>+</button>
+                    <input />
+                    <button className = "mainchat-sendbtn">
+                      <img src = "images/sendIcon.png" alt = "user" />
+                    </button>
+                </div>
+                  {/* Current Room */}
+                  {currentRoom && (
+                    <div>
+                      <h2>Current Room: {currentRoom.roomName}</h2>
+                      <button onClick={handleLeaveRoom}>Leave Room</button>
+
+                      {/* Chat Messages */}
+                      {messages !== null && (
+                        <div>
+                          <ul>
+                            {messages.map((message, index) => (
+                              <li key={index}>
+                                <strong>{message.senderName}: </strong>
+                                {message.message}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      {/* Chat Input */}
+                      <div>
+                        <input
+                          type="text"
+                          value={inputMessage}
+                          onChange={(e) => setInputMessage(e.target.value)}
+                        />
+                        <button onClick={handleSendMessage}>Send</button>
+                      </div>
+                    </div>
+                  )}
+              </PopupChatStyled>
+              }
+        </Modal>
         </MainChatStyle>
     )
 }
