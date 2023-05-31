@@ -184,7 +184,7 @@ export default function MainChat() {
                     </div>
                     <div className = "mainchat-address-sub-right">
                         <div>
-                            그누빌 님, 이문 1동 근처 107,107명의 이웃들과<br/>
+                            {sessionStorage.name} 님, 이문 1동 근처 107,107명의 이웃들과<br/>
                             배달비 쉐어를 시작해보세요!
                         </div>
                         <div>

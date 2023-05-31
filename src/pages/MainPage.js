@@ -33,7 +33,11 @@ export default function MainPage() {
                 <div className = 'main-left-container'>
                     <img src = "images/Title.png" alt = "id" />
                     <div className = "main-left-txt">함께 나누는 배달비</div>
+                    {sessionStorage.id ?
                     <Link to = '/chat'><button>Know More</button></Link>
+                    : 
+                    <Link to = '/login'><button>Know More</button></Link>
+                }
                 </div>
                 <img className = "main-right-container" src = "images/background.png" alt = "id" />
             </div>
