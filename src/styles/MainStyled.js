@@ -10,6 +10,16 @@ export const MainStyle = styled.div `
         justify-content: space-between;
         padding: 10px 70px;
         align-items: center;
+
+        button {
+            font-size: 20px;
+            background: none;
+            font-weight: bold;
+            color: #d24d4d;
+            border: 1px solid #d24d4d;
+            border-radius: 50%;
+            padding: 10px;
+        }
     }
 
     .mainHeader-logo{

@@ -39,7 +39,7 @@ export default function MainChat() {
 
     useEffect(() => {
         // 사용자 정보(주소코드, 주소)
-        axios.get(UserURL)
+        axios.get(`${URL}/user/${userId}/info`)
         .then((res) => {
             setLocationalCode(res.data.locationalCode);
             setAddress(res.data.address);
@@ -47,9 +47,11 @@ export default function MainChat() {
             .catch((error) => {
             alert(error.response.data.message)
         })
+      }, []);
 
+      useEffect(() => {
         // main chat
-        socket.on("mainchat joined", async (e) => {
+        socket.on("mainchat joined", async (locationalCode) => {
           let mainMessage;
           await axios
             .get(`${URL}/chat/mainchat/${locationalCode}`)
