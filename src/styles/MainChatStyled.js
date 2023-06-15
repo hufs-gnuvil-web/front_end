@@ -45,6 +45,7 @@ export const MainChatStyle = styled.div `
         height: 100vh;
         margin: 30px 10%;
         padding: 60px;
+        padding-right: 30px;
         position: relative;
         border-radius: 26px;
     }
@@ -52,22 +53,33 @@ export const MainChatStyle = styled.div `
     .mainchat-chat-contents{
         display: flex;
         flex-direction: column;
-        gap: 40px;
+        gap: 15px;
+        height: 90%;
+        overflow: auto;
     }
 
     .mainchat-chat {
         display: flex;
-        gap: 13px;
+        flex-direction: column;
+        text-align: left;
+    }
 
-        img {
-            width: 60px;
-        }
+    .main-chat-message {
+        width: max-content;
+        background: #ffffffab;
+        border-radius: 0px 21px 15px 30px;
+        padding: 10px 25px;
+    }
 
-        .mainchat-chat-message {
-            width: 500px;
-            background: #ffffffab;
-            border-radius: 0px 21px 15px 30px;
-        }
+    .mainchat-chat-mymessage {
+        width: max-content;
+        background: rgb(210, 77, 77);
+        border-radius: 15px 0px 27px 15px;
+        color: white;
+        padding: 10px 25px;
+        display: flex;
+        margin-left: auto;
+        margin-right: 20px;
     }
 
     .mainchat-input {
@@ -100,6 +112,7 @@ export const MainChatStyle = styled.div `
             top: 13%;
             border-radius: 21px;
             padding: 10px;
+            padding-left: 80px;
             box-sizing: border-box;
             background: linear-gradient(90deg, rgb(237, 124, 124), rgb(238 197 197));
         }

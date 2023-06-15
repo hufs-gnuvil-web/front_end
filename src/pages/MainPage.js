@@ -2,14 +2,45 @@ import React, {useEffect, useState} from "react";
 import { MainStyle } from "../styles/MainStyled";
 import { Link } from "react-router-dom";
 
-import socketIOClient from "socket.io-client";
 import axios from "axios";
 
-const URL = "https://falling-fire-8326.fly.dev";
-const socket = socketIOClient(URL);
+// import socketIOClient from "socket.io-client";
+// const socket = socketIOClient("https://falling-fire-8326.fly.dev");
 
 export default function MainPage() {
     let sessionStorage = window.sessionStorage;
+    const [address, setAddress] = useState("");
+    const [locationalCode, setLocationalCode] = useState("");
+    const [userId, setUserId] = useState(sessionStorage.id);
+
+    const UserURL = "https://falling-fire-8326.fly.dev/user/" + userId + "/info"
+
+    useEffect(() => {
+        // 사용자 정보(주소코드, 주소)
+        axios.get(UserURL)
+        .then((res) => {
+            setLocationalCode(res.data.locationalCode);
+            setAddress(res.data.address);
+            console.log(locationalCode);
+            })
+            .catch((error) => {
+            alert(error.response.data.message)
+        })
+
+        // socket.on("mainchat joined", async (room) => {
+        //     // setCurrentRoom(room);
+        //     let messages;
+        //     await axios
+        //       .get(`${URL}/chat/mainchat/${locationalCode}`)
+        //       .then((res) => (messages = res.data))
+        //       .catch((err) => console.error(err));
+        //     setMessages([...messages] || []);
+        // });
+    },[]);
+
+    // const handleJoinRoom = (data) => {
+    //     socket.emit("mainchat join room", locationalCode);
+    // };
 
     return(
         <MainStyle>

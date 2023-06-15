@@ -8,7 +8,7 @@ import socketIOClient from "socket.io-client";
 import axios from "axios";
 
 import Modal from 'react-modal';
-import { setSelectionRange } from "@testing-library/user-event/dist/utils";
+// import { setSelectionRange } from "@testing-library/user-event/dist/utils";
 
 const URL = "https://falling-fire-8326.fly.dev";
 const socket = socketIOClient(URL);
@@ -19,20 +19,52 @@ export default function MainChat() {
     const [messages, setMessages] = useState([]);
     const [inputMessage, setInputMessage] = useState("");
 
-    // 모달 채팅
+    let sessionStorage = window.sessionStorage;
+    const [userId, setUserId] = useState(sessionStorage.id);
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+
+    //메인 채팅
+    const [address, setAddress] = useState("");
     const [locationalCode, setLocationalCode] = useState("");
+    const [mainMessage, setMainMessage] = useState([]);
+    const [inputMainMessage, setInputMainMessage] = useState("");
+    const UserURL = "https://falling-fire-8326.fly.dev/user/" + userId + "/info"
+
+    // 모달 채팅
     const [roomName, setRoomName] = useState("");
     const [maxMember, setMaxMember] = useState("");
     const [deliveryFee, setDeliveryFee] = useState("");
     const [restaurantName, setRestaurantName] = useState("");
     const [meetingTime, setMeetingTime] = useState("");
 
-
-    let sessionStorage = window.sessionStorage;
-    const [userId, setUserId] = useState(sessionStorage.id);
-    const [modalIsOpen, setModalIsOpen] = useState(false);
-
     useEffect(() => {
+        // 사용자 정보(주소코드, 주소)
+        axios.get(UserURL)
+        .then((res) => {
+            setLocationalCode(res.data.locationalCode);
+            setAddress(res.data.address);
+            })
+            .catch((error) => {
+            alert(error.response.data.message)
+        })
+
+        // main chat
+        socket.on("mainchat joined", async (e) => {
+          let mainMessage;
+          await axios
+            .get(`${URL}/chat/mainchat/${locationalCode}`)
+            .then((res) => (mainMessage = res.data))
+            .catch((err) => console.error(err));
+          setMainMessage([...mainMessage] || []);
+      });
+
+        // mainchat New message event
+        socket.on("new main message", (mainMessage) => {
+          setMainMessage((prevMainMessage) =>
+            prevMainMessage ? [...prevMainMessage, mainMessage] : [mainMessage]
+          );
+        });
+
         // Fetch initial chatroom list
         socket.on("room list updated", (newRoom) => {
           setChatRooms((prevRooms) => [...prevRooms, newRoom]);
@@ -67,16 +99,37 @@ export default function MainChat() {
             prevMessages ? [...prevMessages, message] : [message]
           );
         });
+
         return () => {
             // Clean up event listeners
+            socket.off("mainchat joined");
+            socket.off("new main message");
+
             socket.off("room list updated");
             socket.off("new room");
             socket.off("room joined");
             socket.off("room left");
             socket.off("new message");
           };
-        }, []);
-      
+      }, []);
+
+
+    const handleJoinMainRoom = (data) => {
+        socket.emit("mainchat join room", locationalCode);
+    };
+
+    const handleSendMainMessage = () => {
+      if (inputMainMessage) {
+        const mainMessageData = {
+          locationalCode: locationalCode,
+          senderName: sessionStorage.name,
+          senderId: userId,
+          message: inputMainMessage,
+        };
+        socket.emit("mainchat send message", mainMessageData);
+        setInputMainMessage("");
+      }
+    };
 
         const handleCreateRoom = () => {
           // Prompt user for room data
@@ -97,7 +150,7 @@ export default function MainChat() {
       
           socket.emit("create room", roomData);
         };
-      
+  // roomid(locationalcode), userID
         const handleJoinRoom = (room) => {
           socket.emit("join room", room);
         };
@@ -122,67 +175,73 @@ export default function MainChat() {
     return(
         <MainChatStyle>
             <Header />
-            <div>
-      {/* Room List */}
-      {chatRooms.length > 0 && (
-        <div>
-          <h2>Chatroom List</h2>
-          <ul>
-            {chatRooms.map((room) => (
-              <li key={room.roomId}>
-                <button onClick={() => handleJoinRoom(room)}>
-                  {room.roomName}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-                    {/* Chat Messages */}
-                    {messages !== null && (
-                      <div>
-                        <ul>
-                          {messages.map((message, index) => (
-                            <>
-                            {message.senderName == sessionStorage.name ?
-                              <li key={index}>
-                                {message.message}
-                                <strong> :{message.senderName}</strong>
-                              </li>
-                            :
-                              <li key={index}>
-                                <strong>{message.senderName}: </strong>
-                                {message.message}
-                              </li>
-                            }
-                            </>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                    <div>
-                      <input
-                        type="text"
-                        value={inputMessage}
-                        onChange={(e) => setInputMessage(e.target.value)}
-                      />
-                      <button className = "mainchat-sendbtn" onClick={handleSendMessage}>
-                        <img src = "images/sendIcon.png" alt = "user" />
-                      </button>
-                    </div>
-      {/* Current Room */}
-      {currentRoom && (
-        <div>
-          <h2>Current Room: {currentRoom.roomName}</h2>
-          <button onClick={handleLeaveRoom}>Leave Room</button>
-        </div>
-      )}
+            
+{/* 연습 코드 */}
+<div>
+{/* Room List */}
+{chatRooms.length > 0 && (
+  <div>
+    <h2>Chatroom List</h2>
+    <ul>
+      {chatRooms.map((room) => (
+        <li key={room.roomId}>
+          <button onClick={() => handleJoinRoom(room)}>
+            {room.roomName}
+          </button>
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
+{/* Chat Messages */}
+{messages !== null && (
+  <div>
+    <ul>
+      {messages.map((message, index) => (
+        <>
+        {message.senderName == sessionStorage.name ?
+          <li key={index}>
+            {message.message}
+            <strong> :{message.senderName}</strong>
+          </li>
+        :
+          <li key={index}>
+            <strong>{message.senderName}: </strong>
+            {message.message}
+          </li>
+        }
+        </>
+      ))}
+    </ul>
+  </div>
+)}
+<div>
+  <input
+    type="text"
+    value={inputMessage}
+    onChange={(e) => setInputMessage(e.target.value)}
+  />
+  <button className = "mainchat-sendbtn" onClick={handleSendMessage}>
+    <img src = "images/sendIcon.png" alt = "user" />
+  </button>
+</div>
+  {/* Current Room */}
+  {currentRoom && (
+    <div>
+      <h2>Current Room: {currentRoom.roomName}</h2>
+      <button onClick={handleLeaveRoom}>Leave Room</button>
     </div>
+  )}
+</div>
+
+
+
+
             <div className = "mainchat-address">
                 <div className = "mainchat-address-main">
                     <div className = "mainchat-address-main-left">
                         <img src = "images/location.png" alt = "id" />
-                        <span>이문 1동 ∨</span>
+                        <span>{address.address} ∨</span>
                     </div>
                     <div className = "mainchat-address-main-right">주소 관리 》</div>
                 </div>
@@ -193,7 +252,7 @@ export default function MainChat() {
                     </div>
                     <div className = "mainchat-address-sub-right">
                         <div>
-                            {sessionStorage.name} 님, 이문 1동 근처 107,107명의 이웃들과<br/>
+                            {sessionStorage.name} 님, {address.address} 근처의 이웃들과<br/>
                             배달비 쉐어를 시작해보세요!
                         </div>
                         <div>
@@ -202,33 +261,34 @@ export default function MainChat() {
                     </div>
                 </div>
             </div>
+            <button onClick={handleJoinMainRoom}>버튼</button>
             <div className = "mainchat-wrapper">
+              {mainMessage !== null && (
                 <div className = "mainchat-chat-contents">
-                    <div className = "mainchat-chat">
-                        <img src = "images/person.png" alt = "user" />
-                        <div className = "mainchat-chat-message">
-
-                        </div>
-                    </div>
-                    <div className = "mainchat-chat">
-                        <img src = "images/person.png" alt = "user" />
-                        <div className = "mainchat-chat-message">
-
-                        </div>
-                    </div>                
-                    <div className = "mainchat-chat">
-                        <img src = "images/person.png" alt = "user" />
-                        <div className = "mainchat-chat-message">
-
-                        </div>
-                    </div>
+                  {mainMessage.map((mainMessage, index) => (
+                    <>
+                    {mainMessage.senderName === sessionStorage.name ?
+                      <div className = "mainchat-chat-mymessage" key={index}>
+                        {mainMessage.message}
+                      </div>
+                    :
+                      <div className = "mainchat-chat" key={index}>
+                        <div className="pc-chat-sender">{mainMessage.senderName}</div>
+                        <div className="main-chat-message">{mainMessage.message}</div>
+                      </div>
+                    }
+                    </>
+                  ))}
                 </div>
-
+              )}
                 <div className = "mainchat-input">
-                    {/* <button>+</button> */}
                     <button className = "mainchat-addbtn" onClick={()=> setModalIsOpen(true)}>+</button>
-                    <input />
-                    <button className = "mainchat-sendbtn">
+                    <input
+                        type="text"
+                        value={inputMainMessage}
+                        onChange={(e) => setInputMainMessage(e.target.value)}
+                      />
+                    <button className = "mainchat-sendbtn" onClick={handleSendMainMessage}>
                       <img src = "images/sendIcon.png" alt = "user" />
                     </button>
                 </div>
@@ -250,7 +310,7 @@ export default function MainChat() {
                       placeholder="채팅방 이름 설정"
                     />
 
-                    <div className="cc-input">
+                    {/* <div className="cc-input">
                       <img src = "images/meet.png" alt = "meet" />
                       <input 
                         type="number"
@@ -258,7 +318,7 @@ export default function MainChat() {
                         onChange = {(e) => {setLocationalCode(e.target.value)}}
                         placeholder="locationalCode"
                       />
-                    </div>
+                    </div> */}
                     
                     <div className="cc-input">
                       <img src = "images/minnum.png" alt = "id" />
