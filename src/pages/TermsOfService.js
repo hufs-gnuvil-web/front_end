@@ -1,8 +1,51 @@
+import React, {useState} from "react";
 import BasicHeader from "../components/BasicHeader";
 import "../styles/LoginStyled.css"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function TermsOfService() {
+    const [allAgreed, setAllAgreed] = useState(false);
+    const [agreements, setAgreements] = useState({
+        serviceAgreed : false,
+        personalAgreed : false,
+        locationAgreed : false,
+    });
+    const navigate = useNavigate();
+
+    const handleAgreementChange = (e) => {
+        const {name, checked} = e.target;
+        setAgreements((prevAgreements) => ({...prevAgreements, [name]: checked}));
+
+        const allChecked = Object.values({...agreements, [name]: checked}).every(
+            (value) => value === true
+        );
+        setAllAgreed(allChecked);
+    }
+
+    const handleAllAgreementChange = (e) => {
+        debugger
+
+        const {checked} = e.target;
+        setAgreements((prevAgreements) => 
+            Object.keys(prevAgreements).reduce(
+                (newAgreements, agreementKey) => ({
+                    ...newAgreements,
+                    [agreementKey]: checked,
+                }),
+                {}
+            )
+        );
+        setAllAgreed(checked);
+    };
+
+    const goNext = () => {
+        if(agreements.serviceAgreed === false || agreements.personalAgreed === false) {
+            alert("필수항목을 체크해주세요")
+        } else {
+            navigate("/signup");
+        }
+    }
+
     return(
         <div className = "Login">
             <BasicHeader />
@@ -19,7 +62,9 @@ export default function TermsOfService() {
                     <div className = "tos-check-all">
                         <input
                             type="checkbox"
-                            value="save"
+                            name = "all"
+                            checked = {allAgreed}
+                            onChange = {handleAllAgreementChange}
                         />
                         <div>회원가입 이용약관, 개인정보 수집 및 이용 (필수) / 정보 수신 동의 (선택) 전체 동의합니다.</div>
                     </div>
@@ -28,7 +73,9 @@ export default function TermsOfService() {
                         <div className = "tos-check-title">
                             <input
                                 type="checkbox"
-                                value="save"
+                                name = "serviceAgreed"
+                                checked = {agreements.serviceAgreed}
+                                onChange = {handleAgreementChange}                        
                             />
                             <div>서비스 이용약관 동의</div><span> (필수)</span>
                         </div>
@@ -42,7 +89,9 @@ export default function TermsOfService() {
                         <div className = "tos-check-title">
                             <input
                                 type="checkbox"
-                                value="save"
+                                name = "personalAgreed"
+                                checked = {agreements.personalAgreed}
+                                onChange = {handleAgreementChange}    
                             />
                             <div>개인정보 수집 및 이용 동의</div><span> (필수)</span>
                         </div>
@@ -56,10 +105,12 @@ export default function TermsOfService() {
                     <div className = "tos-check-items">
                         <div className = "tos-check-title">
                             <input
-                                type="checkbox"
-                                value="save"
+                                type = "checkbox"
+                                name = "locationAgreed"
+                                checked = {agreements.locationAgreed}
+                                onChange = {handleAgreementChange}    
                             />
-                            <div>개인정보 수집 및 이용 동의</div><span> (선택)</span>
+                            <div>위치정보 이용 동의</div><span> (선택)</span>
                         </div>
 
                         <div className = "tos-check-txt">
@@ -79,9 +130,7 @@ export default function TermsOfService() {
                     <Link to = "/">
                         <button className = "tos-button-cancle">취소</button>
                     </Link>
-                    <Link to = "/signup">
-                        <button className = "tos-button-ok">다음</button>
-                    </Link>
+                    <button className = "tos-button-ok" onClick={goNext}>다음</button>
                 </div>
 
             </div>

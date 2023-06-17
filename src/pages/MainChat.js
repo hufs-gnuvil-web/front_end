@@ -48,7 +48,9 @@ export default function MainChat() {
       .catch((error) => {
         alert(error.response.data.message);
       });
+
     socket.emit("mainchat join room", locationalCode);
+    
     socket.on("mainchat joined", async (locationalCode) => {
       let mainMessage;
       await axios
@@ -58,6 +60,7 @@ export default function MainChat() {
       setMainMessage([...mainMessage] || []);
     });
   }, [UserURL, locationalCode]);
+
   // main chat
   useEffect(() => {
     socket.on("mainchat joined", async (locationalCode) => {
@@ -68,6 +71,7 @@ export default function MainChat() {
         .catch((err) => console.error(err));
       setMainMessage([...mainMessage] || []);
     });
+    
     // mainchat New message event
     socket.on("new main message", (mainMessage) => {
       setMainMessage((prevMainMessage) =>

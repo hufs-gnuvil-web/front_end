@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { MainStyle } from "../styles/MainStyled";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import axios from "axios";
 
@@ -9,7 +9,7 @@ import axios from "axios";
 
 export default function MainPage() {
     let sessionStorage = window.sessionStorage;
-    const [address, setAddress] = useState("");
+    // const [address, setAddress] = useState("");
     const [locationalCode, setLocationalCode] = useState("");
     const [userId, setUserId] = useState(sessionStorage.id);
     const UserURL = "https://falling-fire-8326.fly.dev/user/" + userId + "/info"
@@ -25,18 +25,6 @@ export default function MainPage() {
             alert(error.response.data.message)
         })
     },[]);
-
-    const navigate = useNavigate();
-
-    const clickMainChat = () => {
-        navigate('/chat', {
-            state: {
-              id: 1,
-              job: '개발자'
-            }
-        }
-        )
-    }
 
     return(
         <MainStyle>
@@ -61,7 +49,7 @@ export default function MainPage() {
                     <img src = "images/Title.png" alt = "id" />
                     <div className = "main-left-txt">함께 나누는 배달비</div>
                     {sessionStorage.id ?
-                    <button onClick={clickMainChat}>Know More</button>
+                    <Link to = "/chat"><button>Know More</button></Link>
                     : 
                     <Link to = '/login'><button>Know More</button></Link>
                 }
