@@ -1,4 +1,5 @@
 import "../styles/HeaderStyled.css"
+import { Link } from "react-router-dom";
 
 export default function Header() {
     return (
@@ -12,7 +13,9 @@ export default function Header() {
                 </div>
             </div>
 
-            <img src = "images/whiteUser.png" alt = "mypage" className = "header-right" />
+            <Link to = "/mypage">
+                <img src = "images/whiteUser.png" alt = "mypage" className = "header-right" />
+            </Link>
         </div>
     )
 }

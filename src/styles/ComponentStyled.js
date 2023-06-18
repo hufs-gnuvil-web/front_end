@@ -109,3 +109,68 @@ export const PopupChatStyled = styled.div `
         font-size: 13px;
     }
 `
+
+export const MyPageHeaderStyled = styled.div `
+    height: 70px;
+    background-color: #D18A8A;
+    display: flex;
+    align-items: end;
+    place-content: center;
+
+    img{
+        height: 55px;
+    }
+`
+
+export const MyPageSidebarStyled = styled.div `
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    .mypage-user-img {
+        width: 230px;
+        height: 230px;
+        border-radius: 50%;
+        background: rgb(249, 243, 243);
+    }
+
+    .mypage-user-name {
+        font-size: 25px;
+        font-weight: bold;
+    }
+
+    .mypage-list {
+        background: #f9f3f3;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        font-size: 18px;
+        width: 280px;
+        padding: 25px;
+        text-align: left;
+        box-sizing: border-box;
+        border-radius: 25px;
+
+        .mypage-list-items {
+            display: flex;
+            -webkit-box-align: center;
+            align-items: center;
+            gap: 7px;
+            border-bottom: 1px solid #D8ADAD;
+            padding-bottom: 6px;
+            color: #AB7A7A;
+            font-weight: bold;
+            font-size: 17px;
+        }
+
+        .focus {
+            color: #723131;
+        }
+    }
+
+    .mypage-list-title {
+        color: #C05454;
+        font-weight: bold;
+    }
+`
