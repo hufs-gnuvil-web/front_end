@@ -1,9 +1,10 @@
 import React from "react";
+import { MyInfoStyled } from "../styles/MypageStyled";
 
-export default function TermsOfService() {
+export default function Myscreen() {
     return(
-        <div>
-            버전 정보
-        </div>
+        <MyInfoStyled>
+            버전 알려주는건 어떻게 할까융
+        </MyInfoStyled>
     )
 }

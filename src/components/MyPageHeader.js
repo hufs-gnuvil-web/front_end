@@ -6,7 +6,7 @@ export default function MyPageHeader() {
     return (
         <MyPageHeaderStyled>
             <Link to = "/*">
-                <img src = "images/blacklogo.png" alt="ET"/>
+                <img src={process.env.PUBLIC_URL + '/images/blacklogo.png'} alt="ET"/>
             </Link>
         </MyPageHeaderStyled>
     )
