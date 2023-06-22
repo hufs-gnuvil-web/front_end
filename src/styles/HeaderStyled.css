@@ -32,3 +32,9 @@
 .header-right {
     width: 45px;
 }
+
+.header-right-my {
+    display: flex;
+    gap: 20px;
+    cursor: pointer;
+}
