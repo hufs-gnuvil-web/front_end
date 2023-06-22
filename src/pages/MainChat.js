@@ -61,6 +61,12 @@ export default function MainChat() {
     });
   }, [UserURL, locationalCode]);
 
+  const handleEnter  = (e) => {
+    if (e.key === 'Enter') {
+      handleSendMainMessage()
+    }
+};
+
   // main chat
   useEffect(() => {
     socket.on("mainchat joined", async (locationalCode) => {
@@ -185,6 +191,7 @@ export default function MainChat() {
     <MainChatStyle>
       <Header />
 
+
       {/* 연습 코드 */}
       <div>
         {/* Room List */}
@@ -243,6 +250,8 @@ export default function MainChat() {
         )}
       </div>
 
+
+
       <div className="mainchat-address">
         <div className="mainchat-address-main">
           <div className="mainchat-address-main-left">
@@ -269,7 +278,7 @@ export default function MainChat() {
           <div className="mainchat-chat-contents">
             {mainMessage.map((mainMessage, index) => (
               <>
-                {mainMessage.senderName === sessionStorage.name ? (
+                {mainMessage.senderId === sessionStorage.id ? (
                   <div className="mainchat-chat-mymessage" key={index}>
                     {mainMessage.message}
                   </div>
@@ -298,6 +307,7 @@ export default function MainChat() {
             type="text"
             value={inputMainMessage}
             onChange={(e) => setInputMainMessage(e.target.value)}
+            onKeyDown={handleEnter}
           />
           <button className="mainchat-sendbtn" onClick={handleSendMainMessage}>
             <img src="images/sendIcon.png" alt="user" />

@@ -13,6 +13,12 @@ export default function Login() {
 
     let sessionStorage = window.sessionStorage;
 
+    const handleEnter  = (e) => {
+        if (e.key === 'Enter') {
+            ClickLogin(e)
+        }
+    };
+
     const ClickLogin = (e) => {
         e.preventDefault();
         // const data = new FormData(event.currentTarget);
@@ -36,7 +42,6 @@ export default function Login() {
             debugger
             alert(error.response.data.message)
         })
-    
       };
 
     return(
@@ -55,6 +60,7 @@ export default function Login() {
                             placeholder="id"
                             name = {id}
                             onChange={(e) => {setId(e.target.value)}}
+                            onKeyDown={handleEnter}
                         />
                     </div>
                     <div className = "login-inputs-items">
@@ -66,6 +72,7 @@ export default function Login() {
                             placeholder="password"
                             name = {password}
                             onChange={(e) => {setPassword(e.target.value)}}
+                            onKeyDown={handleEnter}
                         />
                     </div>
 
