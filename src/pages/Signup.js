@@ -37,12 +37,6 @@ export default function Signup() {
         })
     }
 
-    // const handleDetail = (e) => {
-    //     setEnroll_home({
-    //         ...enroll_home,
-    //         [e.target.name]:e.target.value,
-    //     })
-    // }
     // 회원가입
     const [id, setId] = useState("");
     const [password, setPassword] = useState("");

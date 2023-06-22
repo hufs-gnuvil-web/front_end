@@ -108,6 +108,12 @@ export const MyInfoStyled = styled.div `
         font-weight: 500;
         color: black;
         padding-left: 20px;
+        display: flex;
+        gap: 12px;
+
+        input {
+            width : 250px;
+        }
     }
 
     .mb-address-btns{

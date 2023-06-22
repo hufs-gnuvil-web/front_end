@@ -18,8 +18,7 @@ function App() {
         <Route path = '/signup' element={<Signup/>}></Route>
         <Route path = '/terms' element={<Terms/>}></Route>
         <Route path = '/success' element={<Finish/>}></Route>
-        <Route path = '/mypage/*' element={<Mypage/>}>
-        </Route>
+        <Route path = '/mypage/*' element={<Mypage/>}></Route>
       </Routes>
     </div>
   );
